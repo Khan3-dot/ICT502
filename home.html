@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Platfrom</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <style>
+    body {
+        background-color: #f0f6fc; /* Light blue background color */
+        color: #333; /* Dark text color */
+        font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .container {
+        background-color: #fff; /* White container background color */
+        border-radius: 15px;
+        border: 10px solid #4caf50; /* Thick green border */
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #007bff; /* Light blue heading color */
+    }
+
+    table {
+        border-radius: 10px;
+        overflow: hidden;
+        color: #333; /* Dark text color for table */
+    }
+
+    th, td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        background-color: #e9ecef; /* Light gray form input background color */
+        color: #333; /* Dark text color for form input */
+    }
+
+    .btn {
+        border-radius: 20px;
+    }
+
+    .btn-sm {
+        padding: 5px 15px;
+    }
+
+    .footer {
+        text-align: center;
+        background-color: #ffc0cb; /* Light pink footer background color */
+        color: #333; /* Dark text color for footer */
+        padding: 20px 0;
+    }
+
+    .footer p {
+        margin: 0;
+    }
+
+    .menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .menu .btn {
+        border-radius: 20px;
+    }
+</style>
+
+
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Online Job Platfrom</h2>
+	
+    <input type="text" id="searchInput" class="form-control mb-3" onkeyup="searchJob()" placeholder="Search for jobs..">
+    
+    <table id="jobTable" class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Posted Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Graphics Designer</td>
+            <td>Creative Solutions Inc.</td>
+            <td>New York City, USA</td>
+            <td>$80,000</td>
+            <td>2024-06-06</td>
+            <td>
+                <button class="btn btn-success btn-sm" onclick="editJob(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteJob(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Senior Graphic Designer</td>
+            <td>Visualize Designs Co.</td>
+            <td>Los Angeles, USA</td>
+            <td>$100,000</td>
+            <td>2024-06-05</td>
+            <td>
+                <button class="btn btn-success btn-sm" onclick="editJob(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteJob(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>UI/UX Designer</td>
+            <td>Pixel Perfect Solutions</td>
+            <td>San Francisco, USA</td>
+            <td>$90,000</td>
+            <td>2024-06-04</td>
+            <td>
+                <button class="btn btn-success btn-sm" onclick="editJob(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteJob(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Web Designer</td>
+            <td>Artistic Creations Ltd.</td>
+            <td>London, UK</td>
+            <td>£60,000</td>
+            <td>2024-06-03</td>
+            <td>
+                <button class="btn btn-success btn-sm" onclick="editJob(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteJob(this)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Graphic Design Lead</td>
+            <td>Digital Artistry Inc.</td>
+            <td>Paris, France</td>
+            <td>€85,000</td>
+            <td>2024-06-02</td>
+            <td>
+                <button class="btn btn-success btn-sm" onclick="editJob(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteJob(this)">Delete</button>
+            </td>
+        </tr>
+        <!-- Add more job entries here -->
+    </tbody>
+</table>
+
+
+    <button class="btn btn-primary btn-block" onclick="addJob()">Add New Job</button>
+</div>
+<div class="footer mt-4">
+    <p>2024 Job Recruitment Platform. ICT502.</p>
+</div>
+
+<script>
+    function editJob(button) {
+        const row = button.parentNode.parentNode;
+        for (let i = 0; i < 5; i++) {
+            const cell = row.cells[i];
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = cell.innerText;
+            input.className = 'form-control';
+            cell.innerHTML = '';
+            cell.appendChild(input);
+        }
+        button.textContent = 'Save';
+        button.className = 'btn btn-primary btn-sm';
+        button.setAttribute('onclick', 'saveJob(this)');
+    }
+
+    function saveJob(button) {
+        const row = button.parentNode.parentNode;
+        for (let i = 0; i < 5; i++) {
+            const cell = row.cells[i];
+            cell.innerText = cell.firstChild.value;
+        }
+        button.textContent = 'Edit';
+        button.className = 'btn btn-success btn-sm';
+        button.setAttribute('onclick', 'editJob(this)');
+    }
+
+    function deleteJob(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+
+    function addJob() {
+        const table = document.getElementById('jobTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        for (let i = 0; i < 5; i++) {
+            const newCell = newRow.insertCell(i);
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control';
+            newCell.appendChild(input);
+        }
+        const actionCell = newRow.insertCell(5);
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'Save';
+        saveButton.className = 'btn btn-primary btn-sm';
+        saveButton.setAttribute('onclick', 'saveNewJob(this)');
+        actionCell.appendChild(saveButton);
+    }
+
+    function saveNewJob(button) {
+        const row = button.parentNode.parentNode;
+        for (let i = 0; i < 5; i++) {
+            const cell = row.cells[i];
+            cell.innerText = cell.firstChild.value;
+        }
+        button.textContent = 'Edit';
+        button.className = 'btn btn-success btn-sm';
+        button.setAttribute('onclick', 'editJob(this)');
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'btn btn-danger btn-sm';
+        deleteButton.setAttribute('onclick', 'deleteJob(this)');
+        button.parentNode.appendChild(deleteButton);
+    }
+
+    function searchJob() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById('jobTable');
+        const trs = table.getElementsByTagName('tr');
+        for (let i = 1; i < trs.length; i++) {
+            const tds = trs[i].getElementsByTagName('td');
+            let found = false;
+            for (let j = 0; j < tds.length - 1; j++) {
+                if (tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            trs[i].style.display = found ? '' : 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
